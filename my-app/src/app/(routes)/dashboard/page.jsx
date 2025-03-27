@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import CardInfo from "./_components/CardInfo";
 import { db } from "../../../../utils/dbConfig";
-import { desc, eq, getTableColumns, sql } from "drizzle-orm";
+import { desc, eq, getTableColumns, sql ,sum} from "drizzle-orm";
 import { Budgets, Expenses, Incomes } from "../../../../utils/schema";
 import BarChartDashboard from "./_components/BarChartDashboard";
 import BudgetItem from "./budgets/_components/BudgetItem";
@@ -25,7 +25,8 @@ function Dashboard() {
       .select({
         ...getTableColumns(Budgets),
 
-        totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
+        totalSpend: sql`SUM(CAST(${Expenses.amount} AS NUMERIC))`.mapWith(Number),
+
         totalItem: sql`count(${Expenses.id})`.mapWith(Number),
       })
       .from(Budgets)

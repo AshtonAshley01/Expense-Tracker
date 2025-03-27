@@ -31,7 +31,8 @@ function CreateBudget({ refreshData }) {
    * Used to Create New Budget
    */
   const onCreateBudget = async () => {
-    const result = await db
+    try {
+      const result = await db
       .insert(Budgets)
       .values({
         name: name,
@@ -45,6 +46,10 @@ function CreateBudget({ refreshData }) {
       refreshData();
       toast("New Budget Created!");
     }
+    } catch (error) {
+      console.log(error)
+    }
+    
   };
   return (
     <div>

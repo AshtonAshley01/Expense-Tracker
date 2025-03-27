@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { db } from "@/utils/dbConfig";
-import { Budgets, Expenses } from "@/utils/schema";
 import { Loader } from "lucide-react";
 import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { db } from "../../../../../../utils/dbConfig";
+import { Budgets,Expenses } from "../../../../../../utils/schema";
 
 function AddExpense({ budgetId, user, refreshData }) {
   const [name, setName] = useState();
@@ -23,6 +23,7 @@ function AddExpense({ budgetId, user, refreshData }) {
         amount: amount,
         budgetId: budgetId,
         createdAt: moment().format("DD/MM/yyy"),
+        createdBy: name,
       })
       .returning({ insertedId: Budgets.id });
 

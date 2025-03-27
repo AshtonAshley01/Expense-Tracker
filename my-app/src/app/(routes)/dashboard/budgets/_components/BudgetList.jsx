@@ -19,7 +19,7 @@ function BudgetList() {
    */
   const getBudgetList=async()=>{
 
-    const result=await db.select({
+    const result = await db.select({
       ...getTableColumns(Budgets),
       totalSpend: sql `sum(CAST(${Expenses.amount} AS numeric))`.mapWith(Number),
       totalItem: sql `count(${Expenses.id})`.mapWith(Number)
