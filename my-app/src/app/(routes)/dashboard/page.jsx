@@ -8,15 +8,25 @@ import { Budgets, Expenses, Incomes } from "../../../../utils/schema";
 import BarChartDashboard from "./_components/BarChartDashboard";
 import BudgetItem from "./budgets/_components/BudgetItem";
 import ExpenseListTable from "./expenses/_components/ExpenseListTable";
+import { useRouter } from "next/navigation";
 function Dashboard() {
   const { user } = useUser();
-
+  console.log("hi",user);
+  console.log("hsdsd");
+  const router = useRouter();
   const [budgetList, setBudgetList] = useState([]);
   const [incomeList, setIncomeList] = useState([]);
   const [expensesList, setExpensesList] = useState([]);
   useEffect(() => {
     user && getBudgetList();
   }, [user]);
+
+
+  useEffect(()=>{
+    if(!user){
+      router.push("/sign-in")
+    }
+  },[user,router])
   /**
    * used to get budget List
    */
